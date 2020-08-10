@@ -7,7 +7,7 @@
         name="accountType"
         value="en"
       />
-      <span class="ml-2">English</span>
+      <span class="ml-2">En</span>
     </label>
     <label class="inline-flex items-center">
       <input
@@ -16,7 +16,7 @@
           name="accountType"
           value="ja"
       />
-      <span class="ml-2">Japanese</span>
+      <span class="ml-2">Ja</span>
     </label>
   </div>
   <div class="grid grid-cols-4 gap-2">
