@@ -1,23 +1,17 @@
 <template>
   <div class="container px-3 py-3 mx-auto">
-    <CTitle />
-    <CForm v-model:url="inputUrl" @load="onLoad" />
-    <CScriptButtons @load="loadScript" />
+    <CTitle title="Dummy text generator" />
+    <CForm @submit="onSubmit" />
     <teleport to="#modal-target">
-      <CModal
-        v-show="isDisplayModal"
-        :script-name="loadedScript.name"
-        :url="loadedScript.url"
-        @close="closeModal"
-      />
+      <CModal v-if="isDisplayModal" @close="closeModal" />
     </teleport>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref } from "vue";
 import CForm from "./components/CForm.vue";
-import CScriptButtons from "./components/CScriptButtons.vue";
+import { DUMMY_TEXT_EN, DUMMY_TEXT_JA } from "./assets/const";
 import CModal from "./components/CModal.vue";
 import CTitle from "./components/CTitle.vue";
 
@@ -25,43 +19,29 @@ export default defineComponent({
   name: "App",
   components: {
     CForm,
-    CScriptButtons,
     CModal,
     CTitle,
   },
   setup: function () {
-    const inputUrl = ref("");
     const isDisplayModal = ref(false);
-    const loadedScript = reactive({
-      name: "",
-      url: "",
-    });
 
-    const loadScript = (name: string, url: string) => {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0]!.id!, {
-          name,
-          url,
-        });
-      });
-      console.log(name, url);
-      loadedScript.name = name;
-      loadedScript.url = url;
+    const copyToClipboard = async (text: string) => {
+      await navigator.clipboard.writeText(text);
+    };
+
+    const onSubmit = async (language: string, length: number) => {
+      const dummyText = generateDummyText(language, length);
+      await copyToClipboard(dummyText);
       showModal();
     };
 
-    const onLoad = () => {
-      loadScript(extractScriptName(inputUrl.value), inputUrl.value);
-      clearInput();
-    };
-
-    const extractScriptName = (url: string) => {
-      const scriptName = url.match(/[-_.\w]+$/);
-      return scriptName ? scriptName[0] : "script";
-    };
-
-    const clearInput = () => {
-      inputUrl.value = "";
+    const generateDummyText = (language: string, maxLength: number) => {
+      console.log(language, maxLength);
+      const textSource = language == "en" ? DUMMY_TEXT_EN : DUMMY_TEXT_JA;
+      const dummyText = textSource.repeat(
+        Math.ceil(maxLength / textSource.length)
+      );
+      return dummyText.substr(0, maxLength);
     };
 
     const showModal = () => {
@@ -73,12 +53,9 @@ export default defineComponent({
     };
 
     return {
-      isDisplayModal,
-      inputUrl,
-      loadedScript,
+      onSubmit,
       closeModal,
-      onLoad,
-      loadScript,
+      isDisplayModal,
     };
   },
 });

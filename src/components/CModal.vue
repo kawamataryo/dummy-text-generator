@@ -1,8 +1,9 @@
 <template>
   <div
-    class="fixed inset-0 px-4 content-center flex justify-center items-center"
+    class="fixed inset-0 px-2 content-center flex justify-center items-center"
+    @click="emitClose"
   >
-    <div class="fixed inset-0 transition-opacity" @click="emitClose">
+    <div class="fixed inset-0 transition-opacity">
       <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
     </div>
     <div
@@ -11,13 +12,13 @@
       aria-modal="true"
       aria-labelledby="modal-headline"
     >
-      <div class="bg-white px-4 pt-5 pb-4">
+      <div class="bg-white px-2 pt-2 pb-2">
         <div class="grid grid-cols-5 gap-2 flex items-center">
           <div
-            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-200 col-span-1"
+            class="mx-auto flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-green-200 col-span-1"
           >
             <svg
-              class="h-6 w-6 text-green-700"
+              class="h-4 w-4 text-green-700"
               fill="currentColor"
               viewBox="0 0 20 20"
               stroke="currentColor"
@@ -30,17 +31,9 @@
             </svg>
           </div>
           <div class="col-span-4">
-            <h3
-              id="modal-headline"
-              class="text-lg leading-6 font-normal text-gray-900"
-            >
-              Loaded a <span class="font-bold">{{ scriptName }}</span>
+            <h3 class="font-normal font-black text-gray-900">
+              Copied to clipboard.
             </h3>
-            <div class="mt-2">
-              <p class="text-xs leading-5 text-gray-600 break-all">
-                {{ url }}
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -52,16 +45,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  props: {
-    scriptName: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
   emits: ["close"],
   setup(_, context) {
     const emitClose = () => context.emit("close");
