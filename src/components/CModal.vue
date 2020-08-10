@@ -31,7 +31,7 @@
             </svg>
           </div>
           <div class="col-span-4">
-            <h3 class="font-normal font-black text-gray-900">
+            <h3 class="font-normal font-bold text-gray-900">
               Copied to clipboard.
             </h3>
           </div>

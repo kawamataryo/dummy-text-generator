@@ -36,7 +36,6 @@ export default defineComponent({
     };
 
     const generateDummyText = (language: string, maxLength: number) => {
-      console.log(language, maxLength);
       const textSource = language == "en" ? DUMMY_TEXT_EN : DUMMY_TEXT_JA;
       const dummyText = textSource.repeat(
         Math.ceil(maxLength / textSource.length)

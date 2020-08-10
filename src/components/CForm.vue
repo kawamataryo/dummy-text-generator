@@ -5,18 +5,18 @@
         v-model="language"
         type="radio"
         name="accountType"
-        value="en"
+        value="ja"
       />
-      <span class="ml-2">En</span>
+      <span class="ml-2">Ja</span>
     </label>
     <label class="inline-flex items-center">
       <input
           v-model="language"
           type="radio"
           name="accountType"
-          value="ja"
+          value="en"
       />
-      <span class="ml-2">Ja</span>
+      <span class="ml-2">En</span>
     </label>
   </div>
   <div class="grid grid-cols-4 gap-2">
@@ -51,7 +51,7 @@ export default defineComponent({
   emits: ["submit"],
   setup(_, context) {
     const length = ref(500);
-    const language = ref("en");
+    const language = ref("ja");
     const isValid = ref(true);
     const inputClasses = reactive({
       "border-red-500": !isValid.value,

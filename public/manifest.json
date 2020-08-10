@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "description" : "Dummy text generator",
-  "name": "Dummy text generator",
+  "description" : "指定文字数のダミーテキストを生成し、クリップボードにコピーする拡張機能です。日本語・英語のダミーテキストの生成に対応しています。",
+  "name": "Dummy Text Generator - 日本語・英語対応のダーミーテキスト生成機 -",
   "version": "0.1",
   "browser_action": {
     "default_popup": "index.html"
